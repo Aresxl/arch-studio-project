@@ -1,0 +1,22 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "@/components/home/sections/Hero.astro";
+import Welcome from "@/components/home/sections/Welcome.astro";
+import SmallTeam from "@/components/home/sections/SmallTeam.astro";
+import Featured from "@/components/home/sections/Featured.astro";
+---
+
+<BaseLayout title="Home">
+  <Hero />
+  <Welcome />
+  <SmallTeam />
+  <Featured />
+</BaseLayout>
+
+<!-- To Do
+ 
+  skip to main lnk
+  MUST Fix setTimeout moving the page back up, add event listener for when the screen gets past x position, then clearTimeout?
+  Look at script tags, do i need to defer them? 
+  Look into Astro islands
+-->

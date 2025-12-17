@@ -1,0 +1,137 @@
+---
+// Images
+import MobileMap from "@/images/contact/mobile/image-map.png";
+import TabletMap from "@/images/contact/tablet/image-map.png";
+import DesktopMap from "@/images/contact/desktop/image-map.png";
+
+import CustomPicture from "../ui/CustomPicture.astro";
+import Heading from "../ui/Heading.astro";
+import LineDivider from "../ui/LineDivider.astro";
+import LinkOrButton from "../ui/LinkOrButton.astro";
+
+//
+---
+
+<section class="contact__details | grid-main" aria-labelledby="contact__details-title">
+  <LineDivider />
+  <div class="content__wrapper">
+    <Heading title="Contact Details" tag="h2" size="h3" id="contact__details-title" />
+    <div class="main-office">
+      <span class="subtitle">Main Office</span>
+      <address class="office-info">
+        <span>Mail: <a href="mailto:archone@mail.com" class="email-link">archone@mail.com</a></span>
+        Address: 1892 Chenoweth Drive TN
+        <span>Phone: <a href="tel:1234563451">123-456-3451</a></span>
+      </address>
+      <LinkOrButton as="a" href="#map" text="View on Map" arrow={true} variant="secondary" />
+    </div>
+    <div class="secondary-office">
+      <span class="subtitle">Office II</span>
+      <address class="office-info">
+        <span
+          >Mail:
+          <a href="mailto:archtwo@mail.com" class="email-link">archtwo@mail.com</a>
+        </span>
+        Address : 3399 Wines Lane TX
+        <span>Phone: <a href="tel:8231234321">832-123-4321</a></span>
+      </address>
+      <LinkOrButton as="a" href="#map" text="View on Map" arrow={true} variant="secondary" />
+    </div>
+  </div>
+  <div class="map" id="map">
+    <CustomPicture
+      desktopURL={DesktopMap}
+      tabletURL={TabletMap}
+      mobileURL={MobileMap}
+      mobileWidth={MobileMap.width}
+      mobileHeight={MobileMap.width}
+      alt="Map showing the geographic locations of our two offices: Main Office in western Tennessee and Office II in southeastern Texas."
+      priority={false}
+      class="picture__map"
+    />
+  </div>
+</section>
+
+<style>
+  .contact__details {
+    .line {
+      margin-block-end: 72px;
+    }
+  }
+
+  .content__wrapper {
+    display: grid;
+    gap: 30px;
+  }
+
+  .h3 {
+    max-width: 9ch;
+  }
+
+  .subtitle {
+    display: block;
+    margin-block-end: 24px;
+  }
+
+  .office-info {
+    display: grid;
+
+    a {
+      color: var(--clr-primary-zinc-600);
+
+      &:hover {
+        color: var(--clr-primary-zinc-900);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .btn {
+    margin-block-start: 48px;
+  }
+
+  .map {
+    grid-column: 1 / -1;
+    margin-block-start: 75px;
+  }
+
+  @media (min-width: 40rem) {
+    .content__wrapper {
+      gap: 45px;
+    }
+
+    .main-office,
+    .secondary-office {
+      display: grid;
+      grid-template-columns: 1fr auto;
+    }
+
+    .office-info {
+      grid-row: 2 / 3;
+    }
+
+    .btn {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+      align-self: end;
+      margin-block-start: 0px;
+    }
+
+    .map {
+      grid-column: 2 / -2;
+      margin-block-start: 200px;
+      scroll-margin-block-start: 150px;
+    }
+  }
+  @media (min-width: 62.5rem) {
+    .content__wrapper {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .btn {
+      grid-column: 1 / 2;
+      grid-row: 3 / 4;
+      margin-block-start: 56px;
+    }
+  }
+</style>

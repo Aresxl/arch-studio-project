@@ -1,0 +1,71 @@
+---
+import Heading from "@/components/ui/Heading.astro";
+
+import { getCollection } from "astro:content";
+import FeaturedCard from "../FeaturedCard.astro";
+import LinkOrButton from "@/components/ui/LinkOrButton.astro";
+const projects = await getCollection(`projects`);
+const featuredProjects = projects.filter((project) => project.data.roles.includes(`featured`));
+---
+
+<section class="featured | grid-main">
+  <Heading tag="h2" size="h3" title="Featured" />
+  <div class="card__wrapper">
+    {
+      featuredProjects.map(({ data }, i) => (
+        <FeaturedCard title={data.title} gallery={data.gallery.portfolio} index={i + 1} />
+      ))
+    }
+  </div>
+  <LinkOrButton as="a" href="/portfolio" variant="primary" text="See All" arrow={true} />
+</section>
+
+<style>
+  .featured {
+    padding-block: 73px 133px;
+  }
+
+  .card__wrapper {
+    display: grid;
+    gap: 24px;
+    margin-block-start: 48px;
+  }
+
+  .h3 {
+    text-align: center;
+  }
+
+  .btn {
+    margin-block-start: 24px;
+    justify-content: center;
+  }
+
+  @media (min-width: 40rem) {
+    .h3 {
+      grid-row: 1 / 2;
+      text-align: left;
+    }
+
+    .card__wrapper {
+      gap: 30px;
+      margin-block-start: 64px;
+    }
+
+    .btn {
+      justify-self: end;
+      grid-row: 1 / 2;
+      grid-column: 12 / -2;
+      margin-block-start: 0px;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .featured {
+      padding-block: 200px;
+    }
+
+    .card__wrapper {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

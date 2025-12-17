@@ -1,0 +1,182 @@
+[
+  {
+    "id": "1",
+    "title": "Project Paramour",
+    "description": "Project made for an art museum near Southwest London. Project Paramour is a statement of bold, modern architecture.",
+    "gallery": {
+      "hero": {
+        "mobile": "/src/assets/images/home/mobile/image-hero-paramour.jpg",
+        "tablet": "/src/assets/images/home/tablet/image-hero-paramour.jpg",
+        "desktop": "/src/assets/images/home/desktop/image-hero-paramour.jpg"
+      },
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-paramour-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-paramour-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-paramour.jpg"
+      }
+    },
+    "roles": ["hero", "portfolio"],
+    "date": "February 2008"
+  },
+  {
+    "id": "2",
+    "title": "Seraph Station",
+    "description": "The Seraph Station project challenged us to design a unique station that would transport people through time. The result is a fresh and futuristic model inspired by space stations.",
+    "gallery": {
+      "hero": {
+        "mobile": "/src/assets/images/home/mobile/image-hero-seraph.jpg",
+        "tablet": "/src/assets/images/home/tablet/image-hero-seraph.jpg",
+        "desktop": "/src/assets/images/home/desktop/image-hero-seraph.jpg"
+      },
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-seraph-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-seraph-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-seraph.jpg"
+      }
+    },
+    "roles": ["hero", "portfolio"],
+    "date": "September 2019"
+  },
+  {
+    "id": "3",
+    "title": "Federal II Tower",
+    "description": "A sequel theme project for a tower originally built in the 1800s. We achieved this with a striking look of brutal minimalism with modern touches.",
+    "gallery": {
+      "hero": {
+        "mobile": "/src/assets/images/home/mobile/image-hero-federal.jpg",
+        "tablet": "/src/assets/images/home/tablet/image-hero-federal.jpg",
+        "desktop": "/src/assets/images/home/desktop/image-hero-federal.jpg"
+      },
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-federal-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-federal-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-federal.jpg"
+      }
+    },
+    "roles": ["hero", "portfolio"],
+    "date": "March 2017"
+  },
+  {
+    "id": "4",
+    "title": "Trinity Bank Tower",
+    "description": "Trinity Bank challenged us to make a concept for a 84 story building located in the middle of a city with a high earthquake frequency. For this project we used curves to blend design and stability to meet our objectives.",
+    "gallery": {
+      "hero": {
+        "mobile": "/src/assets/images/home/mobile/image-hero-trinity.jpg",
+        "tablet": "/src/assets/images/home/tablet/image-hero-trinity.jpg",
+        "desktop": "/src/assets/images/home/desktop/image-hero-trinity.jpg"
+      },
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-trinity-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-trinity-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-trinity.jpg"
+      }
+    },
+    "roles": ["hero", "portfolio"],
+    "date": "September 2010"
+  },
+  {
+    "id": "5",
+    "title": "Eebox Building",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-eebox-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-eebox-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-eebox.jpg"
+      }
+    },
+    "roles": ["portfolio"],
+    "date": "September 2010"
+  },
+  {
+    "id": "6",
+    "title": "Project Del Sol",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-del-sol-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-del-sol-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-del-sol.jpg"
+      }
+    },
+    "roles": ["featured", "portfolio"],
+    "date": " January 2016"
+  },
+  {
+    "id": "7",
+    "title": " 228B Tower",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-228b-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-228b-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-228b.jpg"
+      }
+    },
+    "roles": ["featured", "portfolio"],
+    "date": "April 2015"
+  },
+  {
+    "id": "8",
+    "title": "Le Prototype",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-prototype-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-prototype-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-prototype.jpg"
+      }
+    },
+    "roles": ["featured", "portfolio"],
+    "date": "October 2015"
+  },
+  {
+    "id": "9",
+    "title": "Grand Edelweiss Hotel",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-edelweiss-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-edelweiss-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-edelweiss.jpg"
+      }
+    },
+    "roles": ["portfolio"],
+    "date": "December 2013"
+  },
+  {
+    "id": "10",
+    "title": "Netcry Tower",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-netcry-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-netcry-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-netcry.jpg"
+      }
+    },
+    "roles": ["portfolio"],
+    "date": "August 2012"
+  },
+  {
+    "id": "11",
+    "title": "Hypers",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-hypers-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-hypers-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-hypers.jpg"
+      }
+    },
+    "roles": ["portfolio"],
+    "date": "January 2012"
+  },
+  {
+    "id": "12",
+    "title": "SXIV Tower",
+    "gallery": {
+      "portfolio": {
+        "mobile": "/src/assets/images/portfolio/mobile/image-sxiv-2x.jpg",
+        "tablet": "/src/assets/images/portfolio/tablet/image-sxiv-2x.jpg",
+        "desktop": "/src/assets/images/portfolio/desktop/image-sxiv.jpg"
+      }
+    },
+    "roles": ["portfolio"],
+    "date": "March 2011"
+  }
+]

@@ -1,0 +1,119 @@
+---
+import CustomPicture from "../ui/CustomPicture.astro";
+import Heading from "../ui/Heading.astro";
+
+interface Props {
+  title: string;
+  gallery: {
+    mobile: ImageMetadata;
+    tablet: ImageMetadata;
+    desktop: ImageMetadata;
+  };
+  index: number;
+}
+
+const { title, gallery, index } = Astro.props;
+---
+
+<a href="/portfolio" class="card">
+  <article>
+    <CustomPicture
+      desktopURL={gallery.desktop}
+      tabletURL={gallery.tablet}
+      mobileURL={gallery.mobile}
+      mobileWidth={gallery.mobile.width}
+      mobileHeight={gallery.mobile.height}
+      alt=""
+      priority={false}
+      class="featured__card-picture gradient--bg"
+    />
+    <span class="number">{index}</span>
+    <div class="content__wrapper">
+      <Heading title={title} tag="h3" size="h4" />
+      <span>View All Projects</span>
+    </div>
+  </article>
+</a>
+
+<style>
+  .card {
+    overflow: hidden;
+  }
+
+  article {
+    position: relative;
+    display: grid;
+    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .card:hover article {
+    transform: scale(1.05);
+  }
+
+  .card:hover picture:after {
+    background: var(--clr-gradient-hover);
+  }
+
+  .featured__card-picture,
+  .content__wrapper {
+    grid-row: 1 / 2;
+    grid-column: 1 / 1;
+  }
+
+  .featured__card-picture {
+    z-index: -1;
+  }
+
+  .content__wrapper {
+    align-self: end;
+    padding-inline-start: 24px;
+    padding-block-end: 16px;
+    color: var(--clr-neutral-0);
+
+    .h4 {
+      font-size: var(--fs-500);
+      font-weight: var(--fw-700);
+      line-height: 1.25;
+    }
+
+    span {
+      font-size: var(--fs-400);
+      font-weight: var(--fw-500);
+      opacity: 0.75;
+    }
+  }
+
+  .number {
+    display: none;
+  }
+
+  @media (min-width: 40rem) {
+    .number {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+
+      display: block;
+      padding-block-start: 40px;
+      font-size: var(--fs-card-number);
+      font-weight: var(--fw-700);
+      letter-spacing: -5px;
+      line-height: 0.8;
+      color: var(--clr-neutral-0);
+      opacity: 0.5;
+    }
+
+    .content__wrapper {
+      padding-inline-start: 40px;
+      padding-block-end: 32px;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .content__wrapper {
+      padding-inline-start: clamp(10px, calc(10px + (100vw - 1000px) * (30 / 440)), 40px);
+      padding-block-end: 40px;
+    }
+  }
+</style>

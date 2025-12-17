@@ -1,0 +1,159 @@
+---
+import { getImage } from "astro:assets";
+
+interface Props {
+  desktopURL: string | ImageMetadata;
+  tabletURL?: string | ImageMetadata;
+  mobileURL?: string | ImageMetadata;
+  mobileWidth: number;
+  mobileHeight: number;
+  alt: string;
+  priority: boolean;
+  overlay?: boolean;
+  class?: string;
+}
+
+const {
+  desktopURL,
+  tabletURL,
+  mobileURL,
+  mobileWidth,
+  mobileHeight,
+  alt,
+  priority = false,
+  overlay = true,
+  class: className,
+  ...rest
+} = Astro.props;
+
+// Desktop
+const desktopAvif = await getImage({
+  src: desktopURL,
+  priority: priority,
+  format: "avif",
+});
+const desktopWebp = await getImage({
+  src: desktopURL,
+  priority: priority,
+  format: "webp",
+});
+const desktopJpg = await getImage({
+  src: desktopURL,
+  priority: priority,
+  format: "jpg",
+});
+
+// Tablet
+let tabletAvif;
+let tabletWebp;
+let tabletJpg;
+if (tabletURL) {
+  tabletAvif = await getImage({
+    src: tabletURL,
+    priority: priority,
+    format: "avif",
+  });
+  tabletWebp = await getImage({
+    src: tabletURL,
+    priority: priority,
+    format: "webp",
+  });
+  tabletJpg = await getImage({
+    src: tabletURL,
+    priority: priority,
+    format: "jpg",
+  });
+}
+
+let mobileAvif;
+let mobileWebp;
+let mobileJpg;
+
+if (mobileURL) {
+  mobileAvif = await getImage({
+    src: mobileURL,
+    priority: priority,
+    format: "avif",
+  });
+  mobileWebp = await getImage({
+    src: mobileURL,
+    priority: priority,
+    format: "webp",
+  });
+  mobileJpg = await getImage({
+    src: mobileURL,
+    priority: priority,
+    format: "jpg",
+    width: mobileWidth,
+    height: mobileHeight,
+  });
+}
+// Mobile
+---
+
+<picture class:list={[className]} {...rest}>
+  <!-- Desktop -->
+  <source media="(min-width: 62.5rem)" srcset={desktopAvif.src} type="image/avif" />
+  <source media="(min-width: 62.5rem)" srcset={desktopWebp.src} type="image/webp" />
+  <source media="(min-width: 62.5rem)" srcset={desktopJpg.src} type="image/jpg" />
+  <!-- Tablet -->
+  {tabletAvif && <source media="(min-width: 40rem)" srcset={tabletAvif.src} type="image/avif" />}
+  {tabletWebp && <source media="(min-width: 40rem)" srcset={tabletWebp.src} type="image/webp" />}
+  {tabletJpg && <source media="(min-width: 40rem)" srcset={tabletJpg.src} type="image/jpg" />}
+  {mobileAvif && <source media="(max-width: 40rem)" srcset={mobileAvif.src} type="image/avif" />}
+  {mobileWebp && <source media="(max-width: 40rem)" srcset={mobileWebp.src} type="image/webp" />}
+  <img
+    src={mobileJpg ? mobileJpg.src : desktopJpg.src}
+    alt={alt}
+    width={mobileJpg?.attributes.width ?? desktopJpg.attributes.width}
+    height={mobileJpg?.attributes.height ?? desktopJpg.attributes.height}
+    loading={priority ? "eager" : "lazy"}
+    decoding={priority ? "sync" : "async"}
+    fetchpriority={priority ? "high" : "auto"}
+  />
+</picture>
+
+<style>
+  picture {
+    position: relative;
+  }
+
+  .gradient--bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--clr-gradient);
+    transition: background 500ms ease-in-out;
+  }
+
+  .light--bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--clr-neutral-950);
+    opacity: 0.35;
+  }
+
+  /*  */
+  .slide__picture img,
+  .small__team-picture img,
+  .featured__card-picture img,
+  .portfolio__card-picture img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .picture__map img {
+    width: 572px;
+    height: 560px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 62.5rem) {
+    .picture__map img {
+      width: 100%;
+      height: auto;
+      margin-inline: 0;
+    }
+  }
+</style>

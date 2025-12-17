@@ -1,0 +1,138 @@
+---
+import CustomPicture from "./ui/CustomPicture.astro";
+import Heading from "./ui/Heading.astro";
+import LineDivider from "./ui/LineDivider.astro";
+
+interface Props {
+  title: string;
+  subtitle: string;
+  description: string;
+  gallery: {
+    desktop: ImageMetadata;
+    tablet: ImageMetadata;
+    mobile: ImageMetadata;
+  };
+}
+
+const { title, subtitle, description, gallery } = Astro.props;
+---
+
+<section class="hero | grid-main" aria-labelledby="page-title">
+  <CustomPicture
+    desktopURL={gallery.desktop}
+    tabletURL={gallery.tablet}
+    mobileURL={gallery.mobile}
+    mobileWidth={gallery.mobile.width}
+    mobileHeight={gallery.mobile.height}
+    alt=""
+    priority={true}
+    class="hero__picture light--bg"
+  />
+  <div class="hero__content">
+    <span class="subtitle" aria-hidden="true">{subtitle}</span>
+    <LineDivider />
+    <Heading tag="h1" size="h3" title={title} id="page-title" />
+    <p class="desc">{description}</p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block-end: 75px;
+  }
+
+  .subtitle {
+    display: none;
+  }
+
+  .hero__picture {
+    grid-column: 1 / -1;
+    clip-path: path("M 0,0 L 375,0 L 375,240 L 343,240 L 343,195 L 0,195 Z");
+  }
+
+  .hero__content {
+    .line {
+      display: none;
+    }
+  }
+
+  .desc {
+    margin-block-start: 16px;
+  }
+
+  @media (min-width: 40rem) {
+    .hero {
+      position: relative;
+      padding-block-end: 160px;
+    }
+
+    .hero__picture {
+      grid-column: 2 / -2;
+      grid-row: 1 / 2;
+      clip-path: path("M 0,0 L 573,0 L 573,300 L  58,300 L 58,720, 0,720  Z");
+
+      img {
+        width: 573px;
+        width: 100%;
+        height: 720px;
+      }
+    }
+    .hero__content {
+      position: relative;
+      grid-row: 1 / 2;
+      grid-column: 5 / 17;
+      z-index: 1;
+      align-self: end;
+
+      .line {
+        display: block;
+        margin-block-end: 72px;
+      }
+    }
+
+    .desc {
+      margin-block-start: 40px;
+    }
+
+    .subtitle {
+      display: block;
+      position: absolute;
+      right: 0;
+      bottom: 100%;
+      font-size: var(--fs-heading-welcome);
+      font-weight: var(--fw-700);
+      letter-spacing: -3px;
+      line-height: 1;
+      color: var(--clr-primary-slate-100);
+    }
+  }
+  @media (min-width: 62.5rem) {
+    .hero {
+      padding-block-end: 200px;
+    }
+
+    .hero__picture {
+      grid-column: 2 / 15;
+      clip-path: path("M 0,0 L 480,0 L 480,217 L 327,217 L 327,720 L 0,720  Z");
+    }
+
+    .hero__content {
+      grid-column: 13 / 24;
+
+      .line {
+        margin-block-end: 57px;
+      }
+    }
+  }
+
+  @media (min-width: 81.5rem) {
+    .hero__picture {
+      grid-column: 2 / 15;
+      clip-path: path("M 0,0 L 635,0 L 635,217 L 482,217 L 482,720 L 0,720  Z");
+    }
+
+    .hero__content {
+      grid-column: 16 / -2;
+    }
+  }
+</style>

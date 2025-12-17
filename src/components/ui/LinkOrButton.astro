@@ -1,0 +1,85 @@
+---
+import ArrowIcon from "@/icons/icon-arrow.svg";
+
+import type { HTMLAttributes } from "astro/types";
+
+type Variant = "primary" | "seconadry";
+
+interface ButtonProps extends HTMLAttributes<"button"> {
+  as: "button";
+  type?: "button" | "submit" | "reset";
+  text: string;
+  variant: Variant;
+  arrow: boolean;
+}
+
+interface AnchorProps extends HTMLAttributes<"a"> {
+  as?: "a";
+  href: string;
+  text: string;
+  variant: Variant;
+  arrow: boolean;
+}
+
+type Props = AnchorProps | ButtonProps;
+const props = Astro.props as Props;
+
+const { as, text, variant = "primary", arrow, ...rest } = Astro.props;
+
+const inferredAs = "href" in props ? "a" : (as ?? "button");
+---
+
+{
+  inferredAs === "a" ? (
+    <a class:list={["btn", `btn--${variant}`]} {...rest}>
+      {text}
+      {arrow && <ArrowIcon class="arrow-icon" aria-hidden="true" />}
+      <slot />
+    </a>
+  ) : (
+    <button class:list={["btn", `btn--${variant}`]} {...rest}>
+      {text}
+      <slot />
+    </button>
+  )
+}
+
+<style>
+  .btn {
+    --ease-elastic-out: cubic-bezier(0.2, 0.8, 0.4, 1.2);
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 24px;
+
+    color: var(--clr-neutral-0);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-700);
+    line-height: 1.4;
+    cursor: pointer;
+
+    transition: background-color 200ms ease-in-out;
+
+    &:active {
+      transform: scale(0.9);
+      transition: transform 120ms ease-in;
+    }
+  }
+
+  .btn--primary {
+    background-color: var(--clr-primary-zinc-900);
+    padding-block: 24px;
+    padding-inline: 30px;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--clr-primary-zinc-600);
+    }
+  }
+
+  .btn--secondary {
+    background-color: transparent;
+    color: var(--clr-primary-zinc-900);
+  }
+</style>

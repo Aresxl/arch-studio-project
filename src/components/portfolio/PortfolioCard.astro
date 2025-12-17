@@ -1,0 +1,87 @@
+---
+import CustomPicture from "../ui/CustomPicture.astro";
+import Heading from "../ui/Heading.astro";
+
+interface Props {
+  title: string;
+  date: Date;
+  gallery: {
+    mobile: ImageMetadata;
+    tablet: ImageMetadata;
+    desktop: ImageMetadata;
+  };
+  index: number;
+}
+
+const { title, date, gallery, index } = Astro.props;
+
+const monthYearFormatter = new Intl.DateTimeFormat(`en-us`, {
+  month: `long`,
+  year: `numeric`,
+});
+---
+
+<article>
+  <CustomPicture
+    desktopURL={gallery.desktop}
+    tabletURL={gallery.tablet}
+    mobileURL={gallery.mobile}
+    mobileWidth={gallery.mobile.width}
+    mobileHeight={gallery.mobile.height}
+    alt=""
+    priority={index < 4 ? true : false}
+    class="portfolio__card-picture gradient--bg"
+  />
+  <div class="content">
+    <Heading tag="h3" size="h4" title={title} />
+    <time datetime={date.toISOString()}>{monthYearFormatter.format(date)}</time>
+  </div>
+</article>
+
+<style>
+  article {
+    display: grid;
+    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+
+    > * {
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  article:hover picture:after {
+    background: var(--clr-gradient-hover);
+  }
+
+  .content {
+    align-self: end;
+    z-index: 1;
+    padding-inline-start: 40px;
+    padding-block-end: 32px;
+    color: var(--clr-neutral-0);
+
+    .h4 {
+      font-size: var(--fs-500);
+      font-weight: var(--fw-700);
+      line-height: 1.25;
+      text-wrap: auto;
+    }
+
+    span {
+      font-size: var(--fs-400);
+      font-weight: var(--fw-500);
+      opacity: 0.75;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .content {
+      padding-block-end: 40px;
+    }
+  }
+</style>

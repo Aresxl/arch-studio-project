@@ -1,0 +1,53 @@
+---
+import PortfolioCard from "@/components/portfolio/PortfolioCard.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+import { getCollection } from "astro:content";
+
+const projects = await getCollection(`projects`);
+console.log(projects[0]);
+---
+
+<BaseLayout title="Portfolio">
+  <h1 class="sr-only">Arch Portfolio</h1>
+
+  <section class="portfolio | grid-main">
+    <h2 class="sr-only">All our projects</h2>
+    <ul>
+      {
+        projects
+          .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+          .map(({ data }, i) => (
+            <li>
+              <a>
+                <PortfolioCard
+                  title={data.title}
+                  date={data.date}
+                  gallery={data.gallery.portfolio}
+                  index={i}
+                />
+              </a>
+            </li>
+          ))
+      }
+    </ul>
+  </section>
+</BaseLayout>
+
+<style>
+  .portfolio {
+    padding-block-end: 132px;
+  }
+
+  ul {
+    display: grid;
+    row-gap: 24px;
+  }
+
+  @media (min-width: 62.5rem) {
+    ul {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 30px;
+    }
+  }
+</style>

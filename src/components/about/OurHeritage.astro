@@ -1,0 +1,75 @@
+---
+import DesktopImg from "@/images/about/desktop/image-heritage.jpg";
+
+import Heading from "../ui/Heading.astro";
+import CustomPicture from "../ui/CustomPicture.astro";
+import LineDivider from "../ui/LineDivider.astro";
+---
+
+<section class="our-heritage | grid-main">
+  <div class="content">
+    <LineDivider />
+    <Heading title="Our Heritage" size="h3" tag="h2" />
+    <p class="desc">
+      Founded in 2007, we started as a trio of architects. Our complimentary skills and relentless
+      attention to detail turned Arch into one of the most sought after boutique firms in the
+      country.
+      <br />
+      <br />
+      Speciliazing in Urban Design allowed us to focus on creating exceptional structures that live in
+      harmony with their surroundings. We consider every detail from every surrounding element to inform
+      our designs.
+      <br />
+      <br />
+      Our small team of world-class professionals provides input on every project.
+    </p>
+  </div>
+  <CustomPicture
+    desktopURL={DesktopImg}
+    mobileWidth={DesktopImg.width}
+    mobileHeight={DesktopImg.height}
+    alt=""
+    priority={false}
+    class="heritage__picture"
+  />
+</section>
+
+<style>
+  .content {
+    .line {
+      margin-block-end: 68px;
+    }
+  }
+
+  .h3 {
+    max-width: 8ch;
+    margin-block-end: 24px;
+  }
+
+  .heritage__picture {
+    display: none;
+  }
+
+  @media (min-width: 40rem) {
+    .content {
+      .line {
+        margin-block-end: 52px;
+      }
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .content {
+      grid-column: 2 / 12;
+      .line {
+        margin-block-end: 87px;
+      }
+    }
+
+    .heritage__picture {
+      display: block;
+      grid-column: 14 / -2;
+      align-self: center;
+    }
+  }
+</style>

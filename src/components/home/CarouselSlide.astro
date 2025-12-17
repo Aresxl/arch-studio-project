@@ -1,0 +1,135 @@
+---
+// Components
+import Heading from "../ui/Heading.astro";
+import LinkOrButton from "../ui/LinkOrButton.astro";
+import CustomPicture from "../ui/CustomPicture.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  gallery: {
+    desktop: ImageMetadata;
+    tablet: ImageMetadata;
+    mobile: ImageMetadata;
+  };
+  index: number;
+  selected: boolean;
+}
+
+const { title, description, gallery, index, selected } = Astro.props;
+---
+
+<div
+  class:list={["slide", { active: selected }]}
+  id={`slide-${index + 1}`}
+  aria-hidden={!selected}
+  role="group"
+  aria-roledescription="slide"
+  data-index={index + 1}
+>
+  <CustomPicture
+    desktopURL={gallery.desktop}
+    tabletURL={gallery.tablet}
+    mobileURL={gallery.mobile}
+    mobileWidth={gallery.mobile.width}
+    mobileHeight={gallery.mobile.height}
+    alt=""
+    priority={index === 0}
+    class="slide__picture light--bg"
+  />
+  <div class="slide__content">
+    <Heading tag="h3" size="h3" title={title} class="hero-title" />
+    <p class="desc">{description}</p>
+    <LinkOrButton
+      as="a"
+      variant="primary"
+      text="See Our Portfolio"
+      href="/portfolio"
+      arrow={true}
+    />
+  </div>
+</div>
+
+<style>
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: 250ms ease;
+    transition-property: opacity, visibility;
+  }
+
+  .slide:nth-of-type(4) {
+    .slide__content {
+      top: 85px;
+    }
+    .light--bg::after {
+      opacity: 0.55;
+    }
+  }
+
+  .slide.active {
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+  }
+
+  .slide__content {
+    position: absolute;
+    inset: 0;
+    top: 114.5px;
+    left: 32px;
+    right: 32px;
+
+    color: var(--clr-neutral-0);
+
+    h3 {
+      text-wrap: auto;
+    }
+  }
+
+  .btn {
+    margin-block-start: 70px;
+  }
+
+  @media (min-width: 40rem) {
+    .slide__content {
+      top: clamp(150px, calc(150px + (100vw - 640px) * (50 / 360)), 200px);
+      left: clamp(20px, calc(20px + (100vw - 640px) * (24 / 360)), 56px);
+      right: 20px;
+
+      .hero-title {
+        max-width: 10ch;
+      }
+
+      .desc {
+        max-width: 46ch;
+      }
+    }
+
+    .btn {
+      margin-block-start: 40px;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .slide__content {
+      top: clamp(50px, calc(50px + (100vw - 1000px) * (150 / 440)), 200px);
+      left: clamp(60px, calc(60px + (100vw - 1000px) * (140 / 440)), 200px);
+
+      .desc {
+        max-width: 40ch;
+      }
+    }
+
+    .slide:nth-of-type(4) {
+      .slide__content {
+        top: clamp(30px, calc(0px + (100vw - 1000px) * (170 / 440)), 200px);
+      }
+    }
+  }
+</style>

@@ -1,0 +1,153 @@
+---
+// Images
+import DesktopImg from "@/images/home/desktop/image-welcome.jpg";
+import TabletImg from "@/images/home/desktop/image-welcome.jpg";
+import MobileImg from "@/images/home/desktop/image-welcome.jpg";
+
+// Components
+import CustomPicture from "@/ui/CustomPicture.astro";
+import Heading from "@/ui/Heading.astro";
+---
+
+<section class="welcome | grid-main" aria-labelledby="site-title">
+  <span class="welcome-text" aria-hidden="true">Welcome</span>
+  <div class="welcome__content">
+    <span class="line"></span>
+    <Heading tag="h1" size="h3" title="Welcome to Arch Studio" id="site-title" />
+    <p>
+      We have a unique network and skillset to help bring your projects to life. Our small team of
+      highly skilled individuals combined with our large network put us in a strong position to
+      deliver exceptional results
+      <br />
+      <br />
+
+      Over the past 10 years, we have worked on all kinds of projects. From stations to high-rise
+      buildings, we create spaces that inspire and delight.
+      <br />
+      <br />
+
+      We work closely with our clients so that we understand the intricacies of each project. This
+      allows us to work in harmony the surrounding area to create truly stunning projects that will
+      stand the test of time.
+    </p>
+  </div>
+  <CustomPicture
+    desktopURL={DesktopImg}
+    tabletURL={TabletImg}
+    mobileURL={MobileImg}
+    mobileWidth={MobileImg.width}
+    mobileHeight={MobileImg.height}
+    alt=""
+    priority={false}
+    class="welcome__picture"
+  />
+</section>
+
+<style>
+  .welcome {
+    padding-block: 72px 112px;
+  }
+
+  h1 {
+    margin-block-end: 24px;
+  }
+
+  p {
+    color: var(--clr-primary-zinc-600);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-500);
+    line-height: 1.35;
+  }
+
+  .welcome-text,
+  .welcome__picture {
+    display: none;
+  }
+
+  .line {
+    display: block;
+    height: 1px;
+    width: 65px;
+    margin-block-end: 65px;
+    background-color: var(--clr-primary-slate-200);
+  }
+
+  @media (min-width: 40rem) {
+    .welcome {
+      padding-block: 97px 180px;
+    }
+
+    .line {
+      display: none;
+    }
+
+    .welcome-text {
+      display: block;
+      font-size: var(--fs-heading-welcome);
+      color: var(--clr-primary-slate-100);
+      font-weight: var(--fw-700);
+      line-height: 1;
+      letter-spacing: -3px;
+    }
+
+    h1 {
+      margin-block-end: 40px;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .welcome {
+      grid-template-rows: auto 1fr;
+      padding-block: 130px 200px;
+    }
+
+    .welcome__content {
+      position: relative;
+      grid-column: 5 / 16;
+    }
+
+    .welcome__picture {
+      display: block;
+      grid-column: 17 / -2;
+      grid-row: 1 / 3;
+      align-self: end;
+
+      img {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        height: 568px;
+      }
+    }
+
+    .welcome-text {
+      grid-row: 1 / 2;
+      z-index: 10;
+      letter-spacing: -5px;
+      line-height: 0.5;
+    }
+  }
+
+  @media (min-width: 75rem) {
+    .welcome {
+      padding-block: 160px 200px;
+    }
+    .welcome__content {
+      position: relative;
+      grid-column: 6 / 15;
+    }
+
+    .welcome__picture {
+      display: block;
+      grid-column: 18 / -2;
+      grid-row: 1 / 3;
+      align-self: end;
+    }
+
+    .welcome-text {
+      grid-row: 1 / 2;
+      z-index: 10;
+      letter-spacing: -5px;
+      line-height: 0.5;
+    }
+  }
+</style>

@@ -1,0 +1,63 @@
+---
+interface Props {
+  id: string;
+  controls: string;
+  index: number;
+  selected: boolean;
+}
+
+const { id, controls, index, selected, ...rest } = Astro.props;
+---
+
+<li role="presentation">
+  <button
+    id={id}
+    aria-controls={controls}
+    aria-selected={selected}
+    aria-label={`Go to slide ${index + 1}`}
+    tabindex={selected ? "0" : "-1"}
+    class:list={[`carousel__button`, selected && `carousel__button--selected`]}
+  >
+    {`0${index + 1}`}
+  </button>
+</li>
+
+<style>
+  .carousel__button {
+    padding: 14px 20px;
+    border: 0px;
+    color: var(--clr-primary-zinc-600);
+    background-color: var(--clr-primary-slate-100);
+    font-size: var(--fs-400);
+    font-weight: var(--fw-700);
+    line-height: 1.4;
+    cursor: pointer;
+    transition: 100ms ease-in-out;
+    transition-property: background-color, scale;
+  }
+
+  .carousel__button:not(.carousel__button--selected):hover {
+    background-color: var(--clr-primary-slate-200);
+    scale: 1.1;
+  }
+
+  .carousel__button--selected {
+    background-color: var(--clr-primary-zinc-900);
+    color: var(--clr-neutral-0);
+    cursor: auto;
+  }
+
+  @media (min-width: 40rem) {
+    .carousel__button {
+      width: 65px;
+      height: 65px;
+    }
+  }
+  @media (min-width: 62rem) {
+    .carousel__button {
+      /* padding: ; */
+      width: 80px;
+      height: 80px;
+    }
+  }
+</style>

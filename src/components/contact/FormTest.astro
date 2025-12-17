@@ -1,0 +1,179 @@
+---
+export const prerender = false;
+
+import Heading from "../ui/Heading.astro";
+import ArrowIcon from "@/icons/icon-arrow.svg";
+---
+
+<section class="form-section grid-main">
+  <Heading title="Connect with us" tag="h2" size="h3" />
+  <form action="" class="form" novalidate>
+    <div class="form__control">
+      <label for="name"></label>
+      <span class="error-message" data-error-for="name" aria-live="polite" id="error-name"></span>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Name"
+        aria-describedby="error-name"
+        required
+        data-input
+      />
+    </div>
+    <div class="form__control">
+      <label for="email"></label>
+      <span class="error-message" data-error-for="email" aria-live="polite" id="error-email"></span>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Email"
+        aria-describedby="error-email"
+        required
+        data-input
+      />
+    </div>
+    <div class="form__control">
+      <label for="textarea"></label>
+      <span class="error-message" data-error-for="textarea" aria-live="polite" id="error-textarea"
+      ></span>
+      <textarea
+        name="textarea"
+        id="textarea"
+        placeholder="Message"
+        aria-describedby="error-textarea"
+        required
+        data-input></textarea>
+    </div>
+    <button class="submit-btn" type="submit">
+      <ArrowIcon class="icon-arrow" />
+    </button>
+  </form>
+</section>
+
+<style>
+  .form-section {
+    padding-block: 78px 130px;
+  }
+
+  .form {
+    display: grid;
+    gap: 32px;
+    margin-block-start: 32px;
+  }
+
+  .form__control {
+    position: relative;
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 0px;
+      padding-inline-start: 32px;
+      padding-block-end: 24px;
+      border: 0px;
+      border-bottom: 1px solid var(--clr-primary-zinc-900);
+    }
+
+    textarea {
+      resize: none;
+    }
+
+    .error-input {
+      border-bottom: 1px solid var(--clr-secondary-red-500);
+
+      &::placeholder {
+        color: hsl(from var(--clr-secondary-red-500) h s l / 0.5);
+      }
+    }
+
+    .error-message {
+      position: absolute;
+      left: 32px;
+      top: 100%;
+      color: var(--clr-secondary-red-500);
+      font-weight: var(--fw-700);
+      font-size: 0.8375rem;
+    }
+  }
+
+  .submit-btn {
+    justify-self: end;
+    margin-block-start: -36px;
+    padding: 32px;
+    border: 0;
+    background-color: var(--clr-primary-zinc-900);
+    color: var(--clr-neutral-0);
+    cursor: pointer;
+    transition: background-color 100ms ease-in-out;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--clr-primary-zinc-600);
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .form-section {
+      padding-block: 160px;
+    }
+
+    .h3 {
+      grid-column: 2 / 9;
+    }
+
+    .form {
+      grid-column: 10 / -2;
+      margin-block-start: 0px;
+    }
+  }
+</style>
+
+<script>
+  import { actions, isInputError } from "astro:actions";
+
+  const form = document?.querySelector<HTMLFormElement>(`.form`);
+
+  form?.addEventListener(`submit`, async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const { error } = await actions.form(formData);
+
+    resetErrors();
+
+    if (isInputError(error)) {
+      console.log(error.fields);
+      for (const [fieldName, message] of Object.entries(error.fields)) {
+        const firstMessage = message[0];
+        setFieldError(fieldName, firstMessage);
+      }
+    }
+  });
+
+  function setFieldError(fieldName: string, message: string | null) {
+    const inputEl = document.querySelector<HTMLInputElement>(`[name="${fieldName}"]`);
+    inputEl?.classList.add(`error-input`);
+
+    const errorMessageEl = document.querySelector<HTMLSpanElement>(
+      `[data-error-for="${fieldName}"]`
+    );
+
+    if (!errorMessageEl) return;
+    errorMessageEl.textContent = message ?? "";
+  }
+
+  function resetErrors() {
+    const inputEls = document.querySelectorAll(`[data-input]`);
+    const errorMessageEls = document.querySelectorAll(`[data-error-for]`);
+
+    inputEls.forEach((el) => el.classList.remove(`error-input`));
+    errorMessageEls.forEach((el) => (el.textContent = ""));
+  }
+</script>
+
+<!-- 
+
+
+
+-->

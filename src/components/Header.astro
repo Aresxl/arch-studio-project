@@ -1,0 +1,300 @@
+---
+import SiteLogo from "@/icons/logo.svg";
+
+const { pageTitle } = Astro.props;
+---
+
+<header class="site__header | grid-main">
+  <div class="page__label-wrapper">
+    <span class="line"></span>
+    <span class="page__label" aria-hidden="true">{pageTitle}</span>
+  </div>
+  <div class="site__header-wrapper">
+    <a href="/" aria-label="Homepage">
+      <SiteLogo class="home-link" aria-hidden="true" />
+    </a>
+    <button
+      class="nav-toggle"
+      aria-expanded="false"
+      aria-label="Open primary navigation"
+      aria-controls="primary-nav"
+    >
+      <svg class="hamburger" viewBox="0 0 100 100" width="40" aria-hidden="true">
+        <g class="top-group">
+          <rect class="line line--top" width="70" height="8" x="15" y="25"></rect>
+        </g>
+        <rect class="line line--middle" width="70" height="8" x="15" y="45"></rect>
+        <g class="bottom-group">
+          <rect class="line line--bottom" width="70" height="8" x="15" y="65"></rect>
+        </g>
+      </svg>
+    </button>
+    <nav id="primary-nav" class="primary__nav" aria-label="Primary navigation">
+      <ul>
+        <li>
+          <a
+            href="/portfolio"
+            aria-current={Astro.url.pathname === "/portfolio" ? "page" : undefined}>Portfolio</a
+          >
+        </li>
+        <li>
+          <a href="/about" aria-current={Astro.url.pathname === "/about" ? "page" : undefined}>
+            About Us
+          </a>
+        </li>
+        <li>
+          <a href="/contact" aria-current={Astro.url.pathname === "/contact" ? "page" : undefined}
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site__header {
+    background-color: var(--clr-neutral-0);
+    position: relative;
+    z-index: 1000;
+  }
+
+  .site__header-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    padding-block: 32px;
+  }
+
+  .home-link {
+    color: var(--clr-neutral-950);
+  }
+
+  .page__label-wrapper,
+  .close-icon,
+  .primary__nav {
+    display: none;
+  }
+
+  .nav-toggle {
+    border: 0px;
+    border-radius: 3px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  .hamburger {
+    fill: var(--clr-primary-zinc-900);
+  }
+
+  /*  */
+
+  .top-group,
+  .bottom-group,
+  .line {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* Animation for hamburger opening */
+  .nav-toggle[aria-expanded="true"] .top-group,
+  .nav-toggle[aria-expanded="true"] .bottom-group {
+    transition: transform 200ms ease-in-out;
+  }
+
+  .nav-toggle[aria-expanded="true"] .line {
+    transition:
+      transform 200ms ease-in-out 200ms,
+      opacity 0ms 200ms;
+  }
+
+  /* animation for hamburger closing */
+  .nav-toggle[aria-expanded="false"] .top-group,
+  .nav-toggle[aria-expanded="false"] .bottom-group {
+    transition: transform 200ms ease-in-out 200ms;
+  }
+  .nav-toggle[aria-expanded="false"] .line {
+    transition:
+      transform 200ms ease-in-out,
+      opacity 0ms 200ms;
+  }
+
+  /* Spacer, experiement */
+
+  .nav-toggle[aria-expanded="true"] .top-group {
+    transform: translateY(20px);
+  }
+
+  .nav-toggle[aria-expanded="true"] .line--top {
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .line--middle {
+    opacity: 0;
+  }
+  .nav-toggle[aria-expanded="true"] .bottom-group {
+    transform: translateY(-20px);
+  }
+  .nav-toggle[aria-expanded="true"] .line--bottom {
+    transform: rotate(-45deg);
+  }
+
+  /*  */
+
+  .nav-toggle:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 8px;
+  }
+
+  [aria-expanded="true"] + .primary__nav {
+    position: absolute;
+    right: -32px;
+    left: 0px;
+    top: 100%;
+    display: flex;
+    background-color: var(--clr-primary-slate-100);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-block: 42px;
+    padding-inline-start: 48px;
+  }
+
+  a {
+    font-size: var(--fs-heading-project);
+    font-weight: var(--fw-700);
+    color: var(--clr-primary-zinc-900);
+    line-height: 1.25;
+    cursor: pointer;
+
+    transition: color 100ms ease-in-out;
+  }
+
+  a:not([aria-current="page"]):hover {
+    color: var(--clr-primary-zinc-600);
+  }
+
+  [aria-current="page"] {
+    color: var(--clr-primary-zinc-600);
+
+    &::after {
+      content: "";
+      width: 50%;
+      height: 1px;
+      display: block;
+      background-color: var(--clr-primary-zinc-600);
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .site__header-wrapper {
+      position: relative;
+      justify-content: start;
+      align-items: center;
+      gap: 35px;
+      padding-block: 56px;
+    }
+
+    .page__label-wrapper,
+    .primary__nav {
+      display: block;
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    .page__label-wrapper {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 48px;
+      width: 100%;
+      grid-column: 1 / 2;
+
+      .line {
+        display: block;
+        background-color: var(--clr-primary-slate-200);
+        width: 1px;
+        height: 104px;
+        margin-inline: auto;
+      }
+
+      .page__label {
+        writing-mode: vertical-rl;
+        text-transform: uppercase;
+        font-weight: var(--fw-500);
+        color: var(--clr-primary-slate-200);
+      }
+    }
+
+    ul {
+      flex-direction: row;
+      gap: 56px;
+      padding: 0;
+    }
+
+    a {
+      font-size: var(--fs-body);
+      color: var(--clr-primary-slate-500);
+      line-height: 1.4;
+    }
+
+    a:not([aria-current="page"]):hover {
+      color: var(--clr-primary-zinc-900);
+    }
+
+    [aria-current="page"] {
+      color: var(--clr-primary-zinc-900);
+
+      &::after {
+        content: "";
+        width: 24px;
+        background-color: var(--clr-primary-zinc-900);
+        margin-right: 0;
+      }
+    }
+  }
+
+  @media (min-width: 43.75rem) {
+    .site__header-wrapper {
+      gap: 96px;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .page__label-wrapper {
+      .page__label {
+        letter-spacing: 18px;
+      }
+    }
+  }
+</style>
+
+<!-- Add an animation for the UL coming in and out, MAKE SURE you limit for AT users -->
+
+<script>
+  const navToggle = document.querySelector<HTMLButtonElement>(`.nav-toggle`);
+
+  navToggle?.addEventListener(`click`, () => {
+    const isExpanded = navToggle.getAttribute(`aria-expanded`) === `true`;
+    const newExpandedState = !isExpanded;
+
+    navToggle.setAttribute(`aria-expanded`, String(!isExpanded));
+
+    if (newExpandedState) {
+      navToggle.setAttribute(`aria-label`, `Close primary navigation`);
+      document.body.classList.add(`menu-open`);
+    } else {
+      navToggle.setAttribute(`aria-label`, `Open primary navigation`);
+      document.body.classList.remove(`menu-open`);
+    }
+  });
+</script>

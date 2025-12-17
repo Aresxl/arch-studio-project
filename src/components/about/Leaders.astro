@@ -1,0 +1,73 @@
+---
+// Images
+import JakeImg from "@/images/about/desktop/avatar-jake-2x.jpg";
+import ThompsonImg from "@/images/about/desktop/avatar-thompson-2x.jpg";
+import JacksonImg from "@/images/about/desktop/avatar-jackson-2x.jpg";
+import MariaImg from "@/images/about/desktop/avatar-maria-2x.jpg";
+
+import Heading from "../ui/Heading.astro";
+import LeaderCard from "./LeaderCard.astro";
+
+const cardData = [
+  {
+    name: "Jake Richards",
+    role: "Chief Architect",
+    img: JakeImg,
+  },
+  {
+    name: "Thompson Smith",
+    role: "Head of Finance",
+    img: ThompsonImg,
+  },
+  {
+    name: "Jackson Rourke",
+    role: "Lead Designer",
+    img: JacksonImg,
+  },
+  {
+    name: "Maria Simpson",
+    role: " Senior Architect",
+    img: MariaImg,
+  },
+];
+---
+
+<section class="leaders | grid-main">
+  <Heading title="The Leaders" tag="h2" size="h3" />
+  <ul>
+    {cardData.map((card) => <LeaderCard name={card.name} role={card.role} img={card.img} />)}
+  </ul>
+</section>
+
+<style>
+  .leaders {
+    margin-block: 108px 182px;
+  }
+
+  ul {
+    display: grid;
+    row-gap: 80px;
+    margin-block-start: 52px;
+  }
+
+  @media (min-width: 40rem) {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 100px 15px;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .leaders {
+      margin-block: 200px 160px;
+    }
+    .h3 {
+      grid-column: 2 / 9;
+    }
+    ul {
+      grid-column: 10 / -2;
+      gap: 64px 30px;
+      margin-block-start: 0px;
+    }
+  }
+</style>

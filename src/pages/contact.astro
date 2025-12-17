@@ -1,0 +1,29 @@
+---
+// Images
+import HeroMobile from "@/images/contact/mobile/image-hero.jpg";
+import HeroTablet from "@/images/contact/tablet/image-hero.jpg";
+import HeroDesktop from "@/images/contact/desktop/image-hero.jpg";
+
+import InnerPageHero from "@/components/InnerPageHero.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ContactDetails from "@/components/contact/ContactDetails.astro";
+import FormTest from "@/components/contact/FormTest.astro";
+
+const data = {
+  title: "Tell us about your project",
+  subtitle: "Contact",
+  description:
+    "We’d love to hear more about your project. Please, leave a message below or give us a call. We have two offices, one in Texas and one in Tennessee. If you find yourself nearby, come say hello!",
+  gallery: {
+    desktop: HeroDesktop,
+    tablet: HeroTablet,
+    mobile: HeroMobile,
+  },
+};
+---
+
+<BaseLayout title="Contact">
+  <InnerPageHero {...data} />
+  <ContactDetails />
+  <FormTest />
+</BaseLayout>

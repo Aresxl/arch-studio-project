@@ -1,0 +1,81 @@
+---
+// Images
+import desktopImg from "@/images/home/desktop/image-small-team.jpg";
+import tabletImg from "@/images/home/tablet/image-small-team.jpg";
+import mobileImg from "@/images/home/mobile/image-small-team.jpg";
+
+// Components
+import CustomPicture from "@/components/ui/CustomPicture.astro";
+import Heading from "@/components/ui/Heading.astro";
+import LinkOrButton from "@/components/ui/LinkOrButton.astro";
+---
+
+<section class="small__team | grid-main">
+  <CustomPicture
+    desktopURL={desktopImg}
+    tabletURL={tabletImg}
+    mobileURL={mobileImg}
+    mobileWidth={mobileImg.width}
+    mobileHeight={mobileImg.height}
+    alt=""
+    priority={false}
+    class="small__team-picture gradient--bg"
+  />
+  <div class="small__team-content">
+    <Heading tag="h3" size="h3" title="Small team, big ideas" />
+    <LinkOrButton as="a" href="/about" variant="primary" text="About Us" arrow={true} />
+  </div>
+
+  <style>
+    .small__team-picture {
+      grid-column: 1 / -1;
+      grid-row: 1 / 2;
+    }
+
+    .small__team-content {
+      z-index: 10;
+      grid-row: 1 / 2;
+      padding-block-start: 175.5px;
+    }
+
+    .h3 {
+      color: var(--clr-neutral-0);
+      margin-block-end: 30px;
+      max-width: 13ch;
+    }
+
+    @media (min-width: 31.25rem) {
+      .small__team-picture {
+        grid-column: 2 / -2;
+      }
+
+      .small__team-content {
+        padding-inline: 24px;
+      }
+    }
+
+    @media (min-width: 40rem) {
+      .small__team-content {
+        padding-block-start: 165px;
+        padding-inline: 56px 72px;
+      }
+    }
+
+    @media (min-width: 50rem) {
+      .small__team-content {
+        padding-block-start: 200px;
+      }
+    }
+
+    @media (min-width: 62.5rem) {
+      .small__team-content {
+        padding-block-start: clamp(80px, calc(80px + (100vw - 1000px) * (85.5 / 440)), 165.5px);
+        padding-inline-start: clamp(56px, calc(56px + (100vw - 1000px) * (146 / 440)), 200px);
+      }
+
+      .h3 {
+        max-width: 13ch;
+      }
+    }
+  </style>
+</section>

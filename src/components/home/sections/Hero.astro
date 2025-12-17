@@ -1,0 +1,182 @@
+---
+import { getCollection } from "astro:content";
+
+import CarouselSlide from "@/components/home/CarouselSlide.astro";
+import CarouselButton from "@/components/home/CarouselButton.astro";
+
+const projects = await getCollection(`projects`);
+const heroProjects = projects.filter((p) => p.data.roles.includes(`hero`));
+let selectedIndex = 0;
+---
+
+<section
+  class="hero__carousel | grid-main"
+  role="region"
+  aria-roledescription="carousel"
+  aria-labelledby="our-work"
+  tabindex="0"
+>
+  <h2 class="sr-only" id="our-work">Our Work</h2>
+
+  <ol class="slide__controls" aria-label="Slide controls">
+    {
+      heroProjects.map((_, i) => (
+        <CarouselButton
+          id={`tab-${i + 1}`}
+          controls={`slide-${i + 1}`}
+          index={i}
+          selected={i === selectedIndex}
+        />
+      ))
+    }
+  </ol>
+
+  <div class="slides">
+    {
+      heroProjects.map(({ data }, i) => (
+        <CarouselSlide
+          title={data.title}
+          description={data.description!}
+          gallery={data.gallery.hero!}
+          index={i}
+          selected={i === selectedIndex}
+        />
+      ))
+    }
+  </div>
+
+  <span class="sr-only" aria-live="polite" aria-atomic="true" id="carousel-announcement"> </span>
+</section>
+<style>
+  .hero__carousel {
+    position: relative;
+  }
+
+  .slide__controls {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    transform: translateY(-50%);
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+  }
+
+  .slides {
+    grid-column: 1 / -1;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  @media (min-width: 31.25rem) {
+    .slides {
+      grid-column: 2 / -2;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .slide__controls {
+      right: auto;
+      left: -80px;
+      /* bottom: 0px; */
+      transform: translateY(-100%);
+    }
+  }
+</style>
+
+<script>
+  const carousel = document.querySelector<HTMLDivElement>(`.hero__carousel`);
+  const slides = carousel?.querySelectorAll<HTMLDivElement>(`.slide`);
+  const carouselControlButtons = carousel?.querySelectorAll<HTMLButtonElement>(`.carousel__button`);
+  const announcement = carousel?.querySelector<HTMLSpanElement>(`#carousel-announcement`);
+
+  let currentIndex = 0;
+  // let timer: number | null = null;
+  let timer: ReturnType<typeof setInterval> | null = null;
+  let isPaused = false;
+
+  function goTo(index: number) {
+    if (!slides || !carouselControlButtons) return;
+
+    slides?.forEach((slide, i) => {
+      const isActive = i === index;
+      slide.classList.toggle(`active`, isActive);
+      slide.setAttribute(`aria-hidden`, String(!isActive));
+    });
+
+    carouselControlButtons?.forEach((btn, i) => {
+      const isActive = i === index;
+      if (i === index) {
+        btn.setAttribute(`tabindex`, `0`);
+        btn.focus();
+      } else {
+        btn.setAttribute(`tabindex`, `-1`);
+      }
+      btn.toggleAttribute(`aria-selected`, isActive);
+      btn.classList.toggle(`carousel__button--selected`, i === index);
+    });
+
+    if (!slides) return;
+    const slideTitle = slides[index].querySelector<HTMLHeadingElement>(`.hero-title`)?.textContent;
+    announcement!.textContent = `Slide ${index + 1} of ${slides.length}: ${slideTitle}`;
+
+    currentIndex = index;
+  }
+
+  function startAutoPlay() {
+    if (isPaused || !slides) return;
+
+    if (timer !== null) {
+      clearInterval(timer);
+    }
+
+    timer = setInterval(() => {
+      goTo((currentIndex + 1) % slides?.length);
+    }, 7000);
+  }
+
+  function stopAutoPlay() {
+    if (timer !== null) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+
+  function init() {
+    goTo(0);
+    startAutoPlay();
+  }
+
+  carouselControlButtons?.forEach((btn, i) => {
+    btn.addEventListener(`click`, () => {
+      stopAutoPlay();
+      goTo(i);
+      startAutoPlay();
+    });
+  });
+
+  carousel?.addEventListener(`keydown`, (e) => {
+    if (e.key === `ArrowRight` || e.key === `ArrowDown`) {
+      if (!slides) return;
+      e.preventDefault();
+      stopAutoPlay();
+      goTo((currentIndex + 1) % slides?.length);
+      startAutoPlay();
+    } else if (e.key === `ArrowLeft` || e.key === `ArrowUp`) {
+      if (!slides) return;
+      e.preventDefault();
+      stopAutoPlay();
+      goTo((currentIndex + -1) % slides?.length);
+      startAutoPlay();
+    }
+  });
+
+  carousel?.addEventListener(`mouseenter`, stopAutoPlay);
+  carousel?.addEventListener(`mouseleave`, startAutoPlay);
+  carousel?.addEventListener(`focusin`, stopAutoPlay);
+  carousel?.addEventListener(`focusout`, startAutoPlay);
+
+  init();
+</script>

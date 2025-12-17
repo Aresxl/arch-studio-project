@@ -1,0 +1,168 @@
+---
+import SiteLogo from "@/icons/logo.svg";
+import LinkOrButton from "./ui/LinkOrButton.astro";
+---
+
+<footer class="site__footer | grid-main">
+  <div class="site__footer-inner">
+    <div class="site__logo-wrapper">
+      <a href="/" class="home-link">
+        <SiteLogo aria-hidden="true" />
+      </a>
+    </div>
+    <nav aria-label="Footer navigation">
+      <ul>
+        <li>
+          <a
+            href="/portfolio"
+            aria-current={Astro.url.pathname === "/portfolio" ? "page" : undefined}>Portfolio</a
+          >
+        </li>
+        <li>
+          <a href="/about" aria-current={Astro.url.pathname === "/about" ? "page" : undefined}
+            >About Us
+          </a>
+        </li>
+        <li>
+          <a href="/contact" aria-current={Astro.url.pathname === "/contact" ? "page" : undefined}
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </nav>
+    <LinkOrButton
+      as="a"
+      href="/portfolio"
+      variant="primary"
+      text="See Our Portfolio"
+      arrow={true}
+    />
+  </div>
+</footer>
+
+<style>
+  .site__footer-inner {
+    grid-column: 1 / -1;
+    display: grid;
+    justify-items: center;
+    padding-block-end: 48px;
+    background-color: var(--clr-primary-slate-100);
+  }
+
+  .site__logo-wrapper {
+    display: grid;
+    place-content: center;
+    width: 120px;
+    height: 120px;
+    background-color: var(--clr-primary-zinc-900);
+    transform: translateY(-50%);
+  }
+
+  svg {
+    width: 60px;
+    height: 25px;
+    color: var(--clr-neutral-0);
+    transition: color 200ms ease-in-out;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--clr-primary-slate-200);
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    margin-block-end: 32px;
+    text-align: center;
+
+    a {
+      color: var(--clr-primary-slate-500);
+      font-weight: var(--fw-700);
+      line-height: 1.4;
+      cursor: pointer;
+      transition: color 200ms ease-in-out;
+
+      &:hover,
+      &:focus-visible {
+        color: var(--clr-primary-zinc-900);
+      }
+    }
+
+    a:not([aria-current="page"]):hover {
+      color: var(--clr-primary-zinc-900);
+    }
+
+    [aria-current="page"] {
+      color: var(--clr-primary-zinc-900);
+
+      &::after {
+        content: "";
+        display: block;
+        height: 1px;
+        width: 24px;
+        margin-inline: auto;
+        background-color: var(--clr-primary-zinc-900);
+      }
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .site__footer-inner {
+      position: relative;
+      grid-column: 1 / 15;
+      padding-block-end: 0px;
+      align-items: center;
+      justify-items: start;
+    }
+
+    .site__logo-wrapper {
+      transform: translateY(0);
+    }
+
+    nav {
+      grid-column: 3 / 12;
+    }
+
+    ul {
+      flex-direction: row;
+      gap: 56px;
+      margin-block-end: 0px;
+    }
+
+    [aria-current="page"] {
+      &::after {
+        margin-inline: auto 0;
+      }
+    }
+
+    .btn {
+      position: absolute;
+      right: 0;
+      transform: translateX(75%);
+      justify-self: end;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .site__footer-inner {
+      grid-column: 2 / 23;
+    }
+
+    .site__logo-wrapper {
+      width: 200px;
+      height: 200px;
+    }
+
+    svg {
+      width: 96px;
+      height: 40px;
+    }
+
+    .btn {
+      justify-self: end;
+      transform: translateX(40%);
+    }
+  }
+</style>
